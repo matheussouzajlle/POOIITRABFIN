@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Livros</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Biblioteca Virtual</h1>
+    <nav>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/emprestimo">Empréstimo de Livro</a></li>
+            <li><a href="/register">Cadastro de Usuário</a></li>
+            <li><a href="/lista-emprestimos">Relatórios</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section>
+        <h2>Gerenciar Livros</h2>
+        <form action="/cadastro-livro" method="post">
+            <!-- Adiciona os campos do formulário -->
+            <input type="hidden" name="id" th:value="${livro.id}">
+
+            <label for="titulo">Título:</label>
+            <input type="text" id="titulo" name="titulo" th:value="${livro.titulo}" required>
+
+            <label for="autor">Autor:</label>
+            <input type="text" id="autor" name="autor" th:value="${livro.autor}" required>
+
+            <label for="isbn">ISBN:</label>
+            <input type="text" id="isbn" name="isbn" th:value="${livro.isbn}" required>
+
+            <label for="disponivel">Disponível:</label>
+            <select id="disponivel" name="disponivel">
+                <option value="true" th:selected="${livro.disponivel}">Sim</option>
+                <option value="false" th:selected="${livro.disponivel == false}">Não</option>
+            </select>
+
+            <button type="submit">Incluir</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Lista de Livros</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>ISBN</th>
+                <th>Disponível</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Exibe os livros cadastrados -->
+            <tr th:each="livro : ${livros}">
+                <td th:text="${livro.id}"></td>
+                <td th:text="${livro.titulo}"></td>
+                <td th:text="${livro.autor}"></td>
+                <td th:text="${livro.isbn}"></td>
+                <td th:text="${livro.disponivel ? 'Sim' : 'Não'}"></td>
+                <td>
+                    <!-- Botões para editar e excluir -->
+                    <a th:href="@{/editar/{id}(id=${livro.id})}">Alterar</a>
+                    <a th:href="@{/excluir/{id}(id=${livro.id})}">Excluir</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Biblioteca Virtual. Todos os direitos reservados.</p>
+</footer>
+</body>
+</html>

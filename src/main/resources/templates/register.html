@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Novo usuario</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Biblioteca Virtual</h1>
+    <nav>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/emprestimo">Empréstimo de Livro</a></li>
+            <li><a href="/lista-emprestimos">Relatórios</a></li>
+            <li><a href="/cadastro-livro">Cadastrar livro</a></li>
+        </ul>
+    </nav>
+</header>
+<h1>Novo usuario</h1>
+
+<form action="/register" method="post">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" name="nome" th:value="${usuario.nome}" required>
+    <div th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></div>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:value="${usuario.email}" required>
+    <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+
+    <label for="senha">Senha:</label>
+    <input type="password" id="senha" name="senha" th:value="${usuario.senha}" required>
+    <div th:if="${#fields.hasErrors('senha')}" th:errors="*{senha}"></div>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+<!-- Mensagem de erro se o email já estiver em uso -->
+<div th:if="${emailJaExistente}">
+    <p style="color: red;">Este email já está em uso. Tente outro.</p>
+</div>
+
+</body>
+<footer>
+    <p>&copy; 2024 Biblioteca Virtual. Todos os direitos reservados.</p>
+</footer>
+</html>

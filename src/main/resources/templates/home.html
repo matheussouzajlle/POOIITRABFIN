@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Biblioteca Virtual</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+    <h1>Biblioteca Virtual</h1>
+    <nav>
+        <ul>
+            <li><a href="/emprestimo">Empréstimo de Livro</a></li>
+            <li><a href="/register">Cadastro de Usuário</a></li>
+            <li><a href="/lista-emprestimos">Relatórios</a></li>
+            <li><a href="/cadastro-livro">Cadastrar livro</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <section id="livros">
+        <h2>Livros Disponíveis</h2>
+        <ul>
+            <!-- Itera sobre os livros passados pelo controlador -->
+            <li th:each="livro : ${livros}">
+                <h3 th:text="${livro.titulo}">Título do Livro</h3>
+                <p th:text="'Autor: ' + ${livro.autor}">Autor do Livro</p>
+                <p th:text="'ISBN: ' + ${livro.isbn}">ISBN do Livro</p>
+                <p th:text="'Disponível: ' + ${livro.disponivel ? 'Sim' : 'Não'}">Disponibilidade</p>
+            </li>
+        </ul>
+    </section>
+</main>
+
+<footer>
+    <p>&copy; 2024 Biblioteca Virtual. Todos os direitos reservados.</p>
+</footer>
+</body>
+</html>
